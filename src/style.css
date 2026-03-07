@@ -1,0 +1,19 @@
+import 'ant-design-vue/dist/antd.css';
+
+/* 必须给 html 和 body 设定明确的最小尺寸 */
+html, body {
+  width: 350px;       /* 面板的固定宽度 */
+  min-height: 450px;  /* 面板的最小高度 */
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f8f9fa;
+}
+
+#app {
+  width: 350px;
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+

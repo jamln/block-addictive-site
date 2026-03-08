@@ -61,19 +61,34 @@
     </a-checkbox-group>
 
     <div
+      v-for="(timeRange, index) in state.timeRanges"
+      :key="index"
       style="display: flex; justify-content: space-between; margin-top: 10px"
     >
       <a-time-picker
-        v-model="state.timeRange.start"
+        v-model:value="timeRange.start"
         format="HH:mm"
         style="width: 45%"
       />
       <a-time-picker
-        v-model="state.timeRange.end"
+        v-model:value="timeRange.end"
         format="HH:mm"
         style="width: 45%"
       />
+      <a-button
+        type="link"
+        size="small"
+        @click="removeTimeRange(index)"
+        >删除</a-button
+      >
     </div>
+
+    <a-button
+      type="link"
+      size="small"
+      @click="addTimeRange"
+      >添加时间段</a-button
+    >
 
     <!-- <a-button
       type="primary"
@@ -86,6 +101,7 @@
 
 <script setup>
 import { ref, reactive, onMounted, watch } from 'vue';
+import dayjs from 'dayjs';
 import { getConfig, saveConfig } from './utils/storage';
 
 // 1. 严格初始化的响应式状态
@@ -93,7 +109,7 @@ const state = reactive({
   isTemporarilyDisabled: false,
   blockedDomains: [],
   activeDays: [0, 1, 2, 3, 4, 5, 6], // 默认全选
-  timeRange: { start: '00:00', end: '23:59' },
+  timeRanges: [{ start: dayjs('00:00', 'HH:mm'), end: dayjs('23:59', 'HH:mm') }],
 });
 
 const newDomain = ref('');
@@ -115,7 +131,17 @@ onMounted(async () => {
   state.isTemporarilyDisabled = config.isTemporarilyDisabled || false;
   state.blockedDomains = config.blockedDomains || [];
   state.activeDays = config.activeDays || [];
-  state.timeRange = config.timeRange || { start: '00:00', end: '23:59' };
+  state.timeRanges = config?.timeRanges?.length
+    ? config.timeRanges
+    : [{ start: '00:00', end: '23:59' }];
+
+  // 时间段组件的时间格式
+  state.timeRanges = state.timeRanges.map((timeRange) => {
+    return {
+      start: dayjs(timeRange.start, 'HH:mm'),
+      end: dayjs(timeRange.end, 'HH:mm'),
+    };
+  });
 
   console.log('🟢 [Popup] 初始化读取配置成功:', config);
 
@@ -127,7 +153,7 @@ onMounted(async () => {
 
 // 3. 稳健的添加/删除逻辑
 const addDomain = () => {
-  console.log("🚀 ~ addDomain ~ domain:", newDomain);
+  console.log('🚀 ~ addDomain ~ domain:', newDomain);
   const domain = newDomain.value.trim().toLowerCase(); // 统一转小写防误判
   if (domain && !state.blockedDomains.includes(domain)) {
     state.blockedDomains.push(domain); // 触发响应式
@@ -148,6 +174,15 @@ watch(
     try {
       // 彻底剥离 Proxy 外壳，转换为纯净的 JS 对象
       const rawData = JSON.parse(JSON.stringify(newState));
+
+      // 组件时间格式转回字符格式
+      rawData.timeRanges = rawData.timeRanges.map((timeRange) => {
+        return {
+          start: dayjs(timeRange.start).format('HH:mm'),
+          end: dayjs(timeRange.end).format('HH:mm'),
+        };
+      });
+
       await saveConfig(rawData);
       console.log('💾 [Popup] 数据已自动保存:', rawData);
     } catch (error) {
@@ -156,4 +191,27 @@ watch(
   },
   { deep: true },
 );
+
+// 5. 时间段设置
+const addTimeRange = () => {
+  state.timeRanges.push({ start: dayjs('00:00', 'HH:mm'), end: dayjs('23:59', 'HH:mm') });
+  // 更新 state.timeRanges 数组
+  state.timeRanges = [...state.timeRanges];
+};
+
+const updateTimeRange = (index, type, val) => {
+  if (type === 'start') {
+    state.timeRanges[index].start = val;
+  } else {
+    state.timeRanges[index].end = val;
+  }
+  state.timeRanges = [...state.timeRanges];
+};
+
+const removeTimeRange = (index) => {
+  state.timeRanges.splice(index, 1);
+  // 更新 state.timeRanges 数组
+  state.timeRanges = [...state.timeRanges];
+};
+
 </script>

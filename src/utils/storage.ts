@@ -2,7 +2,7 @@
 export interface BlockConfig {
   blockedDomains: string[];
   activeDays: number[];
-  timeRange: { start: string; end: string };
+  timeRanges: { start: string; end: string }[];
   isTemporarilyDisabled: boolean;
 }
 
@@ -10,7 +10,7 @@ export interface BlockConfig {
 const DEFAULT_CONFIG: BlockConfig = {
   blockedDomains: [],
   activeDays: [0, 1, 2, 3, 4, 5, 6], // 默认周日到周六全选
-  timeRange: { start: '00:00', end: '23:59' }, // 默认全天
+  timeRanges: [{ start: '00:00', end: '23:59' }], // 默认全天
   isTemporarilyDisabled: false
 };
 

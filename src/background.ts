@@ -23,15 +23,19 @@ function isBlockTime(config: any): boolean {
   const minutes = now.getMinutes().toString().padStart(2, '0');
   const currentTimeStr = `${hours}:${minutes}`;
 
-  console.log(`⏰ 当前时间: ${currentTimeStr}, 拦截范围: ${config.timeRange?.start} - ${config.timeRange?.end}`);
+  // console.log(`⏰ 当前时间: ${currentTimeStr}`);
 
-  if (config.timeRange && config.timeRange.start && config.timeRange.end) {
-    const isTimeMatch = currentTimeStr >= config.timeRange.start && currentTimeStr <= config.timeRange.end;
-    if (!isTimeMatch) console.log("⏳ 当前时间不在拦截范围内");
-    return isTimeMatch;
-  }
-  
-  return false;
+  const timeRanges = config.timeRanges || [];
+  let isTimeMatch = false;
+
+  timeRanges.forEach((timeRange) => {
+    if (currentTimeStr >= timeRange.start && currentTimeStr <= timeRange.end) {
+      isTimeMatch = true;
+    }
+  });
+
+  if (!isTimeMatch) console.log("⏳ 当前时间不在任何拦截范围内");
+  return isTimeMatch;
 }
 
 chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {

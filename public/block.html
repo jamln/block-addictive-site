@@ -5,85 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>访问受限 - Block Site</title>
   <style>
-    body, html {
+    /* 1. 彻底清除默认样式，防止 Margin 塌陷引起错位 */
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
       height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      /* 使用稳定的必应每日壁纸镜像 API */
-      background-image: url('https://api.dujin.org/bing/1920.php');
+      width: 100%;
+      overflow: hidden; /* 核心：干掉滚动条，防止视图宽度被挤压导致背景对不齐 */
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    }
+
+    /* 2. 背景层独立提取，使用 fixed 钉死在视口上 */
+    .bg-layer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      /* 这里可以换成你喜欢的背景图片或必应壁纸接口 */
+      background-image: url('https://api.dujin.org/bing/1920.php'); 
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      z-index: -1;
+    }
+
+    /* 3. 使用 Flex 居中，彻底抛弃 top/left/transform 居中法 */
+    .container {
       display: flex;
       justify-content: center;
       align-items: center;
+      height: 100vh;
+      width: 100vw;
     }
 
-    /* 毛玻璃效果的提示卡片 */
+    /* 4. 毛玻璃卡片样式 */
     .glass-card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.15); /* 透明度稍微调低一点，毛玻璃质感更好 */
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px); /* 兼容老版本内核 */
       border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 16px;
       padding: 40px 50px;
       text-align: center;
-      color: #ffffff;
-      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
       max-width: 400px;
+      width: 90%;
+      color: #fff;
     }
 
-    .icon {
-      font-size: 64px;
-      margin-bottom: 16px;
-      display: block;
-    }
-
-    h1 {
-      margin: 0 0 12px 0;
+    .glass-card h1 {
       font-size: 28px;
-      font-weight: 600;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
-      letter-spacing: 1px;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    p {
-      margin: 0 0 30px 0;
+    .glass-card p {
       font-size: 16px;
-      line-height: 1.6;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+      line-height: 1.5;
+      margin-bottom: 30px;
       color: rgba(255, 255, 255, 0.9);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
-    .btn {
-      background-color: rgba(255, 255, 255, 0.9);
+    .glass-card button {
+      background: rgba(255, 255, 255, 0.9);
       color: #333;
       border: none;
       padding: 12px 30px;
-      border-radius: 50px;
+      border-radius: 8px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
-    .btn:hover {
-      background-color: #ffffff;
+    .glass-card button:hover {
+      background: #fff;
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.4);
     }
   </style>
 </head>
 <body>
-  <div class="glass-card">
-    <span class="icon">🛑</span>
-    <h1>专注时间</h1>
-    <p>您访问的网站已被 Block Site 插件暂时拦截。<br>请保持专注，稍后再来处理这些信息。</p>
-    <button class="btn" id="closeBtn">关闭页面</button>
+  <div class="bg-layer"></div>
+  
+  <div class="container">
+    <div class="glass-card">
+      <h1>🛑 访问受阻</h1>
+      <p>该网站已被安全策略拦截。<br>请回到你的核心任务中去！</p>
+      <button id="closeBtn">关闭页面</button>
+    </div>
   </div>
 
-  <script src="./block.js"></script>
+  <script src="block.js"></script>
 </body>
 </html>

@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>访问受限 - Block Site</title>
   <style>
+    /* 定义全局 CSS 变量，给一个默认底图防止网络慢时白屏 */
+    :root {
+      --dynamic-bg: url('https://api.bimg.cc/random?w=1920&h=1080&mkt=zh-CN');
+    }
     /* 1. 彻底清除默认样式，防止 Margin 塌陷引起错位 */
     * {
       margin: 0;
@@ -27,7 +31,8 @@
       width: 100vw;
       height: 100vh;
       /* 这里可以换成你喜欢的背景图片或必应壁纸接口 */
-      background-image: url('https://api.dujin.org/bing/1920.php'); 
+      /* background-image: url('https://api.dujin.org/bing/1920.php');  */
+      background-image: var(--dynamic-bg);
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
@@ -50,26 +55,33 @@
       -webkit-backdrop-filter: blur(20px); /* 兼容老版本内核 */
       border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 16px;
-      padding: 40px 50px;
+      padding: 35px 38px;
       text-align: center;
       box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-      max-width: 400px;
-      width: 90%;
+      max-width: 470px;
       color: #fff;
     }
 
     .glass-card h1 {
+      margin: 0 0 12px 0;
       font-size: 28px;
-      margin-bottom: 12px;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      letter-spacing: 1px;
+    }
+
+    .glass-card .icon {
+      font-size: 60px;
+      margin-bottom: 16px;
+      display: block;
     }
 
     .glass-card p {
+      margin: 0 0 30px 0;
       font-size: 16px;
-      line-height: 1.5;
-      margin-bottom: 30px;
+      line-height: 1.6;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
       color: rgba(255, 255, 255, 0.9);
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }
 
     .glass-card button {
@@ -96,8 +108,9 @@
   
   <div class="container">
     <div class="glass-card">
-      <h1>🛑 访问受阻</h1>
-      <p>该网站已被安全策略拦截。<br>请回到你的核心任务中去！</p>
+      <span class="icon">🛑</span>
+    <h1>专注时间</h1>
+    <p>您访问的网站已被 Block Addictive Site 插件暂时拦截。<br>请保持专注，稍后再来处理这些信息。</p>
       <button id="closeBtn">关闭页面</button>
     </div>
   </div>

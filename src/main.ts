@@ -5,36 +5,18 @@ import App from './App.vue'
 const app = createApp(App)
 
 // 直接导入所有组件
-import Antd, {
-  Button,
-  Table,
-  Input,
-  Form,
-  Select,
-  Dropdown,
-  Menu,
-  Avatar,
-  Breadcrumb,
-  Pagination,
-  Modal,
-  Upload,
-  Progress,
-  Spin,
-  Alert,
-  Carousel,
-  Collapse,
-  Descriptions,
-  List,
-  Rate,
-  Statistic,
-  Tabs,
-  Timeline,
-  Tooltip,
-  Tree,
-  TreeSelect
-} from 'ant-design-vue'
+import Antd, { message, notification } from 'ant-design-vue'
 app.use(Antd)
 
-app.config.globalProperties.$message = Antd.message
-app.config.globalProperties.$notification = Antd.notification
+// 为全局属性设置类型
+declare module '@vue/runtime-core' {
+  interface ComponentCustomProperties {
+    $message: typeof import('ant-design-vue').message;
+    $notification: typeof import('ant-design-vue').notification;
+  }
+}
+
+app.config.globalProperties.$message = message
+app.config.globalProperties.$notification = notification
 app.mount('#app')
+

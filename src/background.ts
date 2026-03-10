@@ -1,9 +1,9 @@
-import { getConfig } from '../src/utils/storage';
+import { getConfig, type BlockConfig } from '../src/utils/storage';
 
 // 探针 1：确认后台脚本真的被加载了
 console.log("🚀 Block Site 后台服务已成功启动！111");
 
-function isBlockTime(config: any): boolean {
+function isBlockTime(config: BlockConfig): boolean {
   if (config.isTemporarilyDisabled) {
     console.log("🛑 临时放行已开启，跳过拦截");
     return false;

@@ -16,7 +16,7 @@ const DEFAULT_CONFIG: BlockConfig = {
 
 // 获取配置
 export const getConfig = (): Promise<BlockConfig> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, /* reject */) => {
     // 强制校验 chrome.storage 是否存在
     if (typeof chrome === 'undefined' || !chrome.storage) {
       console.error("严重错误：无法访问 chrome.storage API，请检查 manifest 权限！");
@@ -29,7 +29,7 @@ export const getConfig = (): Promise<BlockConfig> => {
         return resolve(DEFAULT_CONFIG);
       }
       // 如果 result.config 存在就返回它，否则返回默认值
-      resolve(result.config || DEFAULT_CONFIG);
+      resolve(result.config as BlockConfig || DEFAULT_CONFIG);
     });
   });
 };
@@ -37,7 +37,7 @@ export const getConfig = (): Promise<BlockConfig> => {
 // 保存配置
 export const saveConfig = (config: BlockConfig): Promise<void> => {
   console.log("🚀 ~ saveConfig ~ config:", config);
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, /* reject */) => {
     if (typeof chrome === 'undefined' || !chrome.storage) {
       console.error("严重错误：无法访问 chrome.storage API");
       return resolve();

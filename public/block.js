@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // const randomBgUrl = `https://api.bimg.cc/random?w=1920&h=1080&mkt=zh-CN&t=${timestamp}`;
   
   // 方案 B (备用): 全球最著名的高清随机图库 Picsum (如果方案 A 某天挂了，可以换这行)
-  // const randomBgUrl = `https://picsum.photos/1920/1080?random=${timestamp}`;
+  const randomBgUrl = `https://picsum.photos/1920/1080?random=${timestamp}`;
 
   // 3. 将这个全新的图片地址，注入到 HTML 根节点的 CSS 变量中
   document.documentElement.style.setProperty('--dynamic-bg', `url('${randomBgUrl}')`);

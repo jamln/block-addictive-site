@@ -12,4 +12,8 @@ export default defineConfig({
       disableAutoLaunch: true,
     }),
   ],
+  esbuild: {
+    // 打包时自动移除所有的 console 和 debugger
+    drop: ['console', 'debugger'],
+  },
 });

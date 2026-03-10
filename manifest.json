@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Block Site",
+  "name": "Block Addictive Site",
   "version": "1.0",
-  "description": "A Chrome extension to block websites",
+  "description": "A Chrome extension to block addictive websites",
   "permissions": ["storage", "declarativeNetRequest", "tabs"],
   "icons": {
     "16": "icon16.png",

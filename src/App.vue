@@ -4,7 +4,7 @@
     title="配置中心"
   >
     <a-switch
-      v-model="state.isTemporarilyDisabled"
+      v-model:checked="state.isTemporarilyDisabled"
       checked-children="开启"
       un-checked-children="关闭"
     />

@@ -1,8 +1,9 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+﻿import { createApp } from 'vue';
+import './style.css';
+import OptionsApp from './OptionsApp.vue';
+// import 'ant-design-vue/dist/antd.css';
 
-const app = createApp(App)
+const app = createApp(OptionsApp)
 
 // 直接导入所有组件
 import Antd, { message, notification } from 'ant-design-vue'
@@ -19,4 +20,3 @@ declare module '@vue/runtime-core' {
 app.config.globalProperties.$message = message
 app.config.globalProperties.$notification = notification
 app.mount('#app')
-

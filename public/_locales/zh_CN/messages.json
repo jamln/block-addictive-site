@@ -1,0 +1,32 @@
+﻿{
+  "popup_title": { "message": "临时模式" },
+  "popup_enabled": { "message": "已开启" },
+  "popup_disabled": { "message": "已关闭" },
+  "popup_pause": { "message": "暂停拦截" },
+  "popup_hint": { "message": "仅在临时需要访问时开启，记得及时关闭。" },
+  "popup_more": { "message": "更多设置" },
+
+  "options_title": { "message": "配置中心" },
+  "options_temp_enabled": { "message": "已开启" },
+  "options_temp_disabled": { "message": "已关闭" },
+  "options_temp_hint": { "message": "临时放行模式" },
+  "options_domain_title": { "message": "黑名单域名" },
+  "options_domain_placeholder": { "message": "添加域名，例如 xiaohongshu.com" },
+  "options_add": { "message": "添加" },
+  "options_empty_domain": { "message": "暂无域名" },
+  "options_delete": { "message": "删除" },
+  "options_time_title": { "message": "时间规则" },
+  "options_add_time": { "message": "添加时间段" },
+  "options_day_mon": { "message": "周一" },
+  "options_day_tue": { "message": "周二" },
+  "options_day_wed": { "message": "周三" },
+  "options_day_thu": { "message": "周四" },
+  "options_day_fri": { "message": "周五" },
+  "options_day_sat": { "message": "周六" },
+  "options_day_sun": { "message": "周日" },
+
+  "block_title": { "message": "访问受限 - Block Addictive Site" },
+  "block_heading": { "message": "专注时间" },
+  "block_message": { "message": "当前网站已被 Block Addictive Site 暂时拦截。请保持专注，稍后再来处理这些信息。" },
+  "block_close": { "message": "关闭页面" }
+}

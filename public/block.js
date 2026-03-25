@@ -1,20 +1,31 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. 生成当前时间的毫秒时间戳，作为“防缓存穿透参数”
+﻿document.addEventListener('DOMContentLoaded', () => {
   const timestamp = new Date().getTime();
-  
-  // 2. 准备随机必应壁纸接口（这里提供两个备选）
-  // 方案 A: 专门提供随机必应壁纸的国内 API (带上 &t=时间戳 彻底防缓存)
-  // const randomBgUrl = `https://api.bimg.cc/random?w=1920&h=1080&mkt=zh-CN&t=${timestamp}`;
-  
-  // 方案 B (备用): 全球最著名的高清随机图库 Picsum (如果方案 A 某天挂了，可以换这行)
   const randomBgUrl = `https://picsum.photos/1920/1080?random=${timestamp}`;
-
-  // 3. 将这个全新的图片地址，注入到 HTML 根节点的 CSS 变量中
   document.documentElement.style.setProperty('--dynamic-bg', `url('${randomBgUrl}')`);
 
-  // 4. 原本的关闭按钮逻辑
+  const getMessage = (key, fallback) => {
+    try {
+      if (typeof chrome !== 'undefined' && chrome.i18n?.getMessage) {
+        const msg = chrome.i18n.getMessage(key);
+        if (msg) return msg;
+      }
+    } catch (_) {
+      // ignore
+    }
+    return fallback || key;
+  };
+
+  document.title = getMessage('block_title', document.title);
+
+  const heading = document.getElementById('blockHeading');
+  if (heading) heading.textContent = getMessage('block_heading', heading.textContent);
+
+  const message = document.getElementById('blockMessage');
+  if (message) message.textContent = getMessage('block_message', message.textContent);
+
   const closeBtn = document.getElementById('closeBtn');
   if (closeBtn) {
+    closeBtn.textContent = getMessage('block_close', closeBtn.textContent);
     closeBtn.addEventListener('click', () => {
       window.close();
     });

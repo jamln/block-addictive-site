@@ -1,33 +1,33 @@
 ﻿<template>
-  <a-card class="page-card" title="配置中心">
+  <a-card class="page-card" :title="$t('options_title')">
     <a-switch
       v-model:checked="state.isTemporarilyDisabled"
-      checked-children="已开启"
-      un-checked-children="已关闭"
+      :checked-children="$t('options_temp_enabled')"
+      :un-checked-children="$t('options_temp_disabled')"
     />
-    <div class="section-hint">临时放行模式</div>
+    <div class="section-hint">{{ $t('options_temp_hint') }}</div>
 
     <a-divider />
 
-    <div class="section-title">黑名单域名</div>
+    <div class="section-title">{{ $t('options_domain_title') }}</div>
     <a-input-search
       v-model:value="newDomain"
-      placeholder="添加域名，例如 facebook.com"
-      enter-button="添加"
+      :placeholder="$t('options_domain_placeholder')"
+      :enter-button="$t('options_add')"
       @search="addDomain"
     />
 
     <a-list
       class="domain-list"
       :data-source="state.blockedDomains"
-      :locale="{ emptyText: '暂无域名' }"
+      :locale="{ emptyText: $t('options_empty_domain') }"
     >
       <template #renderItem="{ item, index }">
         <a-list-item>
           {{ item }}
           <template #actions>
             <a-button type="link" size="small" @click="removeDomain(index)">
-              删除
+              {{ $t('options_delete') }}
             </a-button>
           </template>
         </a-list-item>
@@ -36,7 +36,7 @@
 
     <a-divider />
 
-    <div class="section-title">时间规则</div>
+    <div class="section-title">{{ $t('options_time_title') }}</div>
     <a-checkbox-group v-model:value="state.activeDays" class="days-group" :options="days">
       <div class="days-wrap">
         <a-checkbox
@@ -58,12 +58,12 @@
       <a-time-picker v-model:value="timeRange.start" format="HH:mm" class="time-picker" />
       <a-time-picker v-model:value="timeRange.end" format="HH:mm" class="time-picker" />
       <a-button type="link" size="small" @click="removeTimeRange(index)">
-        删除
+        {{ $t('options_delete') }}
       </a-button>
     </div>
 
     <a-button type="link" size="small" @click="addTimeRange">
-      添加时间段
+      {{ $t('options_add_time') }}
     </a-button>
   </a-card>
 </template>
@@ -72,6 +72,7 @@
 import { onMounted, reactive, ref, watch } from 'vue';
 import dayjs from 'dayjs';
 import { getConfig, saveConfig, type BlockConfig } from '../utils/storage';
+import { t } from '../utils/i18n';
 
 const state = reactive({
   isTemporarilyDisabled: false,
@@ -87,13 +88,13 @@ const isReady = ref(false);
 let saveTimer: number | undefined;
 
 const days = [
-  { label: '周一', value: 1 },
-  { label: '周二', value: 2 },
-  { label: '周三', value: 3 },
-  { label: '周四', value: 4 },
-  { label: '周五', value: 5 },
-  { label: '周六', value: 6 },
-  { label: '周日', value: 0 },
+  { label: t('options_day_mon'), value: 1 },
+  { label: t('options_day_tue'), value: 2 },
+  { label: t('options_day_wed'), value: 3 },
+  { label: t('options_day_thu'), value: 4 },
+  { label: t('options_day_fri'), value: 5 },
+  { label: t('options_day_sat'), value: 6 },
+  { label: t('options_day_sun'), value: 0 },
 ];
 
 onMounted(async () => {

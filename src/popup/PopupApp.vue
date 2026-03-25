@@ -1,22 +1,22 @@
 ﻿<template>
-  <a-card style="width: 100%" title="临时模式">
+  <a-card style="width: 100%" :title="$t('popup_title')">
     <div class="toggle-row">
       <a-switch
         v-model:checked="state.isTemporarilyDisabled"
-        checked-children="已开启"
-        un-checked-children="已关闭"
+        :checked-children="$t('popup_enabled')"
+        :un-checked-children="$t('popup_disabled')"
       />
-      <span class="toggle-label">暂停拦截</span>
+      <span class="toggle-label">{{ $t('popup_pause') }}</span>
     </div>
 
     <div class="hint">
-      仅在临时需要访问时开启，记得及时关闭。
+      {{ $t('popup_hint') }}
     </div>
 
     <a-divider />
 
     <a-button type="primary" block @click="openOptions">
-      更多设置
+      {{ $t('popup_more') }}
     </a-button>
   </a-card>
 </template>

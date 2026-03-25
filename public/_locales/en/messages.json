@@ -1,0 +1,32 @@
+﻿{
+  "popup_title": { "message": "Temporary Mode" },
+  "popup_enabled": { "message": "On" },
+  "popup_disabled": { "message": "Off" },
+  "popup_pause": { "message": "Pause Blocking" },
+  "popup_hint": { "message": "Enable only when you need temporary access. Remember to turn it off." },
+  "popup_more": { "message": "More" },
+
+  "options_title": { "message": "Settings" },
+  "options_temp_enabled": { "message": "On" },
+  "options_temp_disabled": { "message": "Off" },
+  "options_temp_hint": { "message": "Temporary Allow Mode" },
+  "options_domain_title": { "message": "Blocked Domains" },
+  "options_domain_placeholder": { "message": "Add a domain, e.g. facebook.com" },
+  "options_add": { "message": "Add" },
+  "options_empty_domain": { "message": "No domains yet" },
+  "options_delete": { "message": "Remove" },
+  "options_time_title": { "message": "Time Rules" },
+  "options_add_time": { "message": "Add Time Range" },
+  "options_day_mon": { "message": "Mon" },
+  "options_day_tue": { "message": "Tue" },
+  "options_day_wed": { "message": "Wed" },
+  "options_day_thu": { "message": "Thu" },
+  "options_day_fri": { "message": "Fri" },
+  "options_day_sat": { "message": "Sat" },
+  "options_day_sun": { "message": "Sun" },
+
+  "block_title": { "message": "Access Restricted - Block Addictive Site" },
+  "block_heading": { "message": "Focus Time" },
+  "block_message": { "message": "This site is currently blocked by Block Addictive Site. Stay focused and come back later." },
+  "block_close": { "message": "Close" }
+}

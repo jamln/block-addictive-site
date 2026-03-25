@@ -6,10 +6,8 @@
   <title>访问受限 - Block Addictive Site</title>
   <style>
     :root {
-      /* --dynamic-bg: url('https://api.bimg.cc/random?w=1920&h=1080&mkt=zh-CN'); */
       --dynamic-bg: url('https://picsum.photos/1920/1080');
     }
-    /* 1. 彻底清除默认样式，防止 Margin 塌陷引起错位 */
     * {
       margin: 0;
       padding: 0;
@@ -23,7 +21,6 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     }
 
-    /* 2. 背景层独立提取，使用 fixed 固定在视口上 */
     .bg-layer {
       position: fixed;
       top: 0;
@@ -106,8 +103,8 @@
   <div class="container">
     <div class="glass-card">
       <span class="icon">🛑</span>
-      <h1>专注时间</h1>
-      <p>
+      <h1 id="blockHeading">专注时间</h1>
+      <p id="blockMessage">
         当前网站已被 Block Addictive Site 暂时拦截。<br>
         请保持专注，稍后再来处理这些信息。
       </p>

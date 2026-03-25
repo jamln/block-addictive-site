@@ -2,6 +2,7 @@
 import './style.css';
 // import 'ant-design-vue/dist/antd.css';
 import PopupApp from './PopupApp.vue';
+import { t } from '../utils/i18n';
 
 const app = createApp(PopupApp)
 
@@ -14,9 +15,11 @@ declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $message: typeof import('ant-design-vue').message;
     $notification: typeof import('ant-design-vue').notification;
+    $t: (key: string) => string;
   }
 }
 
 app.config.globalProperties.$message = message
 app.config.globalProperties.$notification = notification
+app.config.globalProperties.$t = t
 app.mount('#app')

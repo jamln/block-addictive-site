@@ -3,6 +3,7 @@
   "name": "Block Addictive Site",
   "version": "1.0",
   "description": "A Chrome extension to block addictive websites",
+  "default_locale": "en",
   "permissions": ["storage", "declarativeNetRequest", "tabs"],
   "icons": {
     "16": "icon16.png",

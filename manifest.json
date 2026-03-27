@@ -4,7 +4,7 @@
   "version": "1.0",
   "description": "A Chrome extension to block addictive websites",
   "default_locale": "en",
-  "permissions": ["storage", "declarativeNetRequest", "tabs"],
+  "permissions": ["storage", "tabs"],
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",

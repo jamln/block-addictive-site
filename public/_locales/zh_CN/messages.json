@@ -5,11 +5,13 @@
   "popup_pause": { "message": "暂停拦截" },
   "popup_hint": { "message": "仅在临时需要访问时开启，记得及时关闭。" },
   "popup_more": { "message": "更多设置" },
+  "popup_remaining": { "message": "剩余时间" },
 
   "options_title": { "message": "配置中心" },
   "options_temp_enabled": { "message": "已开启" },
   "options_temp_disabled": { "message": "已关闭" },
   "options_temp_hint": { "message": "临时放行模式" },
+  "options_remaining": { "message": "剩余时间" },
   "options_domain_title": { "message": "黑名单域名" },
   "options_domain_placeholder": { "message": "添加域名，例如 xiaohongshu.com" },
   "options_add": { "message": "添加" },

@@ -4,14 +4,16 @@
   "popup_disabled": { "message": "Off" },
   "popup_pause": { "message": "Pause Blocking" },
   "popup_hint": { "message": "Enable only when you need temporary access. Remember to turn it off." },
-  "popup_more": { "message": "More" },
+  "popup_more": { "message": "More Settings" },
+  "popup_remaining": { "message": "Time remaining" },
 
   "options_title": { "message": "Settings" },
   "options_temp_enabled": { "message": "On" },
   "options_temp_disabled": { "message": "Off" },
   "options_temp_hint": { "message": "Temporary Allow Mode" },
+  "options_remaining": { "message": "Time remaining" },
   "options_domain_title": { "message": "Blocked Domains" },
-  "options_domain_placeholder": { "message": "Add a domain, e.g. facebook.com" },
+  "options_domain_placeholder": { "message": "Add a domain, e.g. xiaohongshu.com" },
   "options_add": { "message": "Add" },
   "options_empty_domain": { "message": "No domains yet" },
   "options_delete": { "message": "Remove" },
@@ -28,5 +30,5 @@
   "block_title": { "message": "Access Restricted - Block Addictive Site" },
   "block_heading": { "message": "Focus Time" },
   "block_message": { "message": "This site is currently blocked by Block Addictive Site. Stay focused and come back later." },
-  "block_close": { "message": "Close" }
+  "block_close": { "message": "Close Page" }
 }

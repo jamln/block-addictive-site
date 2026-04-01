@@ -15,3 +15,9 @@ You can customize the time periods during which to block specific websites, such
 
 **支持时间段设置**
 您可以自定义拦截的时间段，例如在工作时间或学习时间内拦截特定网址。
+
+
+
+## TODO
+
+1. 增加“临时放行模式”的时效设置，目前默认十分钟

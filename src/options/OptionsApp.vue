@@ -7,6 +7,10 @@
     />
     <div class="section-hint">{{ $t('options_temp_hint') }}</div>
 
+    <div v-if="state.isTemporarilyDisabled" class="countdown">
+      {{ $t('options_remaining') }}： {{ remainingText }}
+    </div>
+
     <a-divider />
 
     <div class="section-title">{{ $t('options_domain_title') }}</div>
@@ -69,13 +73,16 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, reactive, ref, watch } from 'vue';
+import { computed, onMounted, onUnmounted, reactive, ref, watch } from 'vue';
 import dayjs from 'dayjs';
 import { getConfig, saveConfig, type BlockConfig } from '../utils/storage';
 import { t } from '../utils/i18n';
 
+const TEMP_DISABLE_MS = 10 * 60 * 1000;
+
 const state = reactive({
   isTemporarilyDisabled: false,
+  temporarilyDisabledUntil: undefined as number | undefined,
   blockedDomains: [] as string[],
   activeDays: [0, 1, 2, 3, 4, 5, 6],
   timeRanges: [
@@ -83,9 +90,36 @@ const state = reactive({
   ],
 });
 
+const remainingMs = ref(0);
+const remainingText = computed(() => {
+  const diff = Math.max(0, remainingMs.value);
+  const minutes = Math.floor(diff / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
+  return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+});
+
 const newDomain = ref('');
 const isReady = ref(false);
 let saveTimer: number | undefined;
+let timerId: number | undefined;
+
+const startCountdown = () => {
+  if (timerId) window.clearInterval(timerId);
+  timerId = window.setInterval(() => {
+    if (state.isTemporarilyDisabled && state.temporarilyDisabledUntil) {
+      const diff = state.temporarilyDisabledUntil - Date.now();
+      remainingMs.value = Math.max(0, diff);
+
+      // 倒计时结束后自动关闭临时放行
+      if (diff <= 0) {
+        state.isTemporarilyDisabled = false;
+        state.temporarilyDisabledUntil = undefined;
+      }
+    } else {
+      remainingMs.value = 0;
+    }
+  }, 1000);
+};
 
 const days = [
   { label: t('options_day_mon'), value: 1 },
@@ -101,6 +135,7 @@ onMounted(async () => {
   const config = await getConfig();
 
   state.isTemporarilyDisabled = !!config.isTemporarilyDisabled;
+  state.temporarilyDisabledUntil = config.temporarilyDisabledUntil;
   state.blockedDomains = config.blockedDomains || [];
   state.activeDays = (config.activeDays && config.activeDays.length)
     ? config.activeDays
@@ -115,8 +150,35 @@ onMounted(async () => {
     end: dayjs(timeRange.end, 'HH:mm'),
   }));
 
+  if (state.temporarilyDisabledUntil) {
+    // 初始化剩余时间，避免第一次渲染闪烁
+    remainingMs.value = Math.max(0, state.temporarilyDisabledUntil - Date.now());
+  }
+
+  // 仅展示倒计时，不在打开设置页时重置计时
   isReady.value = true;
+  startCountdown();
 });
+
+onUnmounted(() => {
+  if (timerId) window.clearInterval(timerId);
+});
+
+watch(
+  () => state.isTemporarilyDisabled,
+  (val) => {
+    if (!isReady.value) return;
+
+    if (val) {
+      // 用户手动开启时才设置新的 10 分钟有效期
+      if (!state.temporarilyDisabledUntil || state.temporarilyDisabledUntil <= Date.now()) {
+        state.temporarilyDisabledUntil = Date.now() + TEMP_DISABLE_MS;
+      }
+    } else {
+      state.temporarilyDisabledUntil = undefined;
+    }
+  },
+);
 
 watch(
   state,
@@ -178,6 +240,12 @@ const removeTimeRange = (index: number) => {
   margin-top: 10px;
   color: #666;
   font-size: 12px;
+}
+
+.countdown {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #4a4a4a;
 }
 
 .domain-list {

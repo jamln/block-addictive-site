@@ -1,10 +1,10 @@
 {
   "manifest_version": 3,
   "name": "Block Addictive Site",
-  "version": "1.0",
+  "version": "1.1",
   "description": "A Chrome extension to block addictive websites",
   "default_locale": "en",
-  "permissions": ["storage", "tabs"],
+  "permissions": ["storage", "tabs", "alarms"],
   "icons": {
     "16": "icon16.png",
     "32": "icon32.png",

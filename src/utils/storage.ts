@@ -1,9 +1,11 @@
-// 定义数据接口，防手抖
+﻿// 定义数据接口，防手抖
 export interface BlockConfig {
   blockedDomains: string[];
   activeDays: number[];
   timeRanges: { start: string; end: string }[];
   isTemporarilyDisabled: boolean;
+  // 临时放行过期时间（时间戳，毫秒）
+  temporarilyDisabledUntil?: number;
 }
 
 // 默认配置（兜底用）

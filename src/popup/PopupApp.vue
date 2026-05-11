@@ -149,7 +149,8 @@ const openOptions = () => {
 
 .countdown {
   margin-top: 6px;
-  font-size: 12px;
+  font-size: 18px;
+  font-weight: bold;
   color: #4a4a4a;
 }
 </style>
